@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
         // CategoriesTableSeederファイルをシーディングの対象にする
         $this->call([CategoriesTableSeeder::class]);
 
+        // AuthorsTableSeederファイルをシーディングの対象にする
+        $this->call([AuthorsTableSeeder::class]);
+
 //        初期であるファイル
 //        User::factory()->create([
 //            'name' => 'Test User',

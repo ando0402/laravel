@@ -11,4 +11,8 @@ class Category extends Model
     use HasFactory;
     // タイトル列の登録を許可する(ホワイトリスト)
     protected $fillable = ['title'];
+
+    public static function create(array $category)
+    {
+    }
 }

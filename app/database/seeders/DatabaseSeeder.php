@@ -21,6 +21,11 @@ class DatabaseSeeder extends Seeder
         // AuthorsTableSeederファイルをシーディングの対象にする
         $this->call([AuthorsTableSeeder::class]);
 
+        $this->call([
+           AuthorsTableSeeder::class,
+           BooksTableSeeder::class,
+        ]);
+
 //        初期であるファイル
 //        User::factory()->create([
 //            'name' => 'Test User',

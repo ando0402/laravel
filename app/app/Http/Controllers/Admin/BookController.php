@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 //use Illuminate\Http\Request;
 use App\Http\Requests\BookPostRequest;
+use \Illuminate\Http\Response;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Book;
 use App\Models\Category;
@@ -13,13 +16,23 @@ use App\Models\Category;
 class BookController extends Controller
 {
     //
-    public function index(): Collection
+
+    public function index(): Response
     {
         // 書籍一覧を取得
-        $books = Book::all();
+//        $books = Book::all();
+        $books = Book::with('category')
+            ->orderby('category_id')
+            ->orderby('title')
+            ->get();
 
         // 書籍一覧をレスポンスとして返す
-        return $books;
+//        return $books;
+//        return view('admin/book/index', ['books' => $books]);
+        return response()
+            ->view('admin/book/index', ['books' => $books])
+            ->header('Content-Type', 'text/html')
+            ->header('Content-Encoding', 'utf-8');
     }
 
     public function show(string $id): Book
@@ -48,7 +61,7 @@ class BookController extends Controller
      * バリデーション処理
      */
 
-    public function store(BookPostRequest $request): Book
+    public function store(BookPostRequest $request): RedirectResponse
     {
 
         // 書籍データ登録用のオブジェクトを作成する
@@ -63,7 +76,10 @@ class BookController extends Controller
         $book->save();
 
         // 保存した書籍情報をレスポンスとして返す
-        return $book;
+        // return $book;
+        // 登録完了後book.indexにリダレクトする
+        return redirect(route('book.index'))
+            ->with('message', $book->title . 'を追加しました');
     }
 
 }

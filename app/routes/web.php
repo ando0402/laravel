@@ -34,7 +34,7 @@ Route::post('/messages', [MessageController::class, 'store']);
 //});
 
 Route::prefix('admin/books')
-    ->name('books.')
+    ->name('book.')
     ->controller(BookController::class)
     ->group(function () {
         Route::get('', 'index')->name('index');

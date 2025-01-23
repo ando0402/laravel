@@ -20,7 +20,7 @@
 {{--                </ul>--}}
 {{--            </div>--}}
 {{--            <x-error-messages :errors="$errors"/>--}}
-            <x-alert>
+            <x-alert class="danger">
                 <x-error-messages :$errors />
             </x-alert>
         @endif

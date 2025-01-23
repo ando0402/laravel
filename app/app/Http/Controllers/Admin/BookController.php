@@ -35,13 +35,16 @@ class BookController extends Controller
             ->header('Content-Encoding', 'utf-8');
     }
 
-    public function show(string $id): Book
+//    public function show(string $id): Book
+//    public function show(int $id): View
+    public function show(Book $book): View
     {
         // 書籍を一件取得
-        $book = Book::findOrFail($id);
+        //$book = Book::findOrFail($id);
 
-        // 書籍を一件取得
-        return $book;
+        // 取得した書籍をレスポンスとして返す
+        // return $book;
+        return view('admin/book/show', compact('book'));
     }
 
     // 登録用画面

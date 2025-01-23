@@ -15,15 +15,17 @@ class Book extends Model
 
     // 1対多
     // 1の方　hasMany
-
     // 多の方　belongsTo
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
+    // 多対多
+    // 多の方　belongsTo
     public function authors(): BelongsToMany
     {
+        // 書籍1件に,複数の著者が紐付くことを定義する
         return $this->belongsToMany(Author::class)->withTimestamps();
     }
 

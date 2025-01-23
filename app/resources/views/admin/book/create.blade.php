@@ -16,7 +16,9 @@
 {{--                </ul>--}}
 {{--            </div>--}}
 {{--            <x-error-messages :errors="$errors"/>--}}
-            <x-error-messages :$errors />
+            <x-alert>
+                <x-error-messages :$errors />
+            </x-alert>
         @endif
         {{--        <form action="/books" method="POST">--}}
         <form action="{{ route('book.store') }}" method="POST">

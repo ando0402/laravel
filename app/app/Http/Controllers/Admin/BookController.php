@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
 
@@ -53,10 +54,15 @@ class BookController extends Controller
         // ビューにカテゴリー一覧を表示するために全件取得
         $categories = Category::all();
 
+        // 著者一覧を表示するために全件取得
+        $authors = Author::all();
+
         // ビューオブジェクトを返す
-        return view('admin/book/create', [
-            'categories' => $categories
-        ]);
+//        return view('admin/book/create', [
+//            'categories' => $categories
+//        ]);
+        return view('admin/book/create',
+            compact('categories', 'authors'));
     }
 
     /*

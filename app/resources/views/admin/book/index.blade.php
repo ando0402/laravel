@@ -1,11 +1,15 @@
-<!Doctype html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>書籍一覧</title>
-</head>
-<body>
-    <main>
+{{--<!Doctype html>--}}
+{{--<html lang="ja">--}}
+{{--<head>--}}
+{{--    <meta charset="UTF-8">--}}
+{{--    <title>書籍一覧</title>--}}
+{{--</head>--}}
+{{--<body>--}}
+{{--    <main>--}}
+<x-layouts.book-manager>
+        <x-slot:title>
+            書籍一覧
+        </x-slot:title>
         <h1>書籍一覧</h1>
         @if (session('message'))
             <div style="color: blue">
@@ -28,6 +32,7 @@
 {{--                </tr>--}}
 {{--            @endforeach--}}
 {{--        </table>--}}
-    </main>
-</body>
-</html>
+{{--    </main>--}}
+{{--</body>--}}
+{{--</html>--}}
+</x-layouts.book-manager>

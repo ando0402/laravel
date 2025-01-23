@@ -20,8 +20,8 @@ return [
         'string' => ':attribute は :max 文字以内で入力して下さい',
         ],
     'min' => [
-        'numeric' => ':attribute は :max 以上を入力して下さい',
-        'string' => ':attribute は :max 文字以上で入力して下さい',
+        'numeric' => ':attribute は :min 以上を入力して下さい',
+        'string' => ':attribute は :min 文字以上で入力して下さい',
     ],
     'numeric' => ':attribute は数値で入力して下さい',
     'required' => ':attribute は必須入力です',

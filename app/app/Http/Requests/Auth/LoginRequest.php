@@ -41,32 +41,14 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        /*
-         * 認証処理
-         * 入力されたemailとpasswordをもとに認証を行う
-         * 認証成功時はtrue,認証失敗時はfalseを返す
-         * $this->boolean('remember')は、[Rremember me]にチェックしたかどうか
-         */
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-
-            // ログイン失敗時の処理
-            // 連続ログイン失敗の制御(複数回失敗するとしばらくログインさせない)
             RateLimiter::hit($this->throttleKey());
-
-
-            /*
-             * ValidationExceptionがスローされると、
-             * バリデーション失敗として処理される
-             * メッセージはlang/en/auth.phpのfailed属性を参照しているので、
-             * 日本語に変更する場合は、lang/ja/auth.phpを作成する
-             */
 
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
             ]);
         }
 
-        // ログイン失敗回数をクリア
         RateLimiter::clear($this->throttleKey());
     }
 

@@ -24,10 +24,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        // 認証処理
         $request->authenticate();
 
+        // ログインのたびにセッションIDの再発行(セキュリティの都合)
         $request->session()->regenerate();
 
+        // ホーム画面(dashboard)にリダイレクト
         return redirect()->intended(route('dashboard', absolute: false));
     }
 

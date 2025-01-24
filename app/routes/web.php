@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\Auth\Admin\AuthenticatedSessionController as AdminAuthenticatedSessionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,3 +21,41 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/messages', [MessageController::class, 'index'])->name('index');
+Route::post('/messages', [MessageController::class, 'store'])->name('store');
+
+Route::prefix('admin')->group(function () {
+
+    Route::name('admin.')
+        ->controller(AdminAuthenticatedSessionController::class)
+        ->group(function () {
+            Route::get('login', 'create')->name('create')
+                ->middleware('guest:admin');;
+            Route::post('login', 'store')->name('store')
+                ->middleware('guest:admin');;
+            Route::post('logout', 'destroy')->name('destroy')
+                ->middleware('auth:admin');
+
+        Route::prefix('books')
+            ->name('book.')
+            ->middleware('auth:admin')
+            ->controller(BookController::class)
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+                Route::get('{book}', 'show')
+                    ->whereNumber('book')->name('show');;
+                Route::get('create', 'create')->name('create');
+                Route::post('', 'store')->name('store');
+                Route::get('{book}/edit', 'edit')
+                    ->whereNumber('book')->name('edit');
+                Route::put('{book}', 'update')
+                    ->whereNumber('book')->name('update');
+                Route::delete('{book}', 'destroy')
+                    ->whereNumber('book')->name('destroy');
+            });
+        });
+});
+
+
+

@@ -1,48 +1,29 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\Admin\BookController;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
+
 Route::get('/messages', [MessageController::class, 'index']);
 Route::post('/messages', [MessageController::class, 'store']);
-
-
-
-// Route　constraints
-//Route::get('admin/books/{id}', [BookController::class, 'show'])
-//    ->whereNumber('id');
-
-// Route Name
-//Route::get('admin/books', [BookController::class, 'index'])
-//    ->name('books.index');
-//Route::get('admin/books/{id}', [BookController::class, 'show'])
-//    ->whereNumber('id')
-//    ->name('books.show');
-
-// Route GROUP
-//Route::prefix('admin/books')->group(function () {
-//    Route::get('', [BookController::class, 'index'])
-//        ->name('books.index');
-//    Route::get('{id}', [BookController::class, 'show'])
-//        ->whereNumber('id')
-//        ->name('books.show');
-//});
-
-//Route::prefix('admin/books')
-//    ->name('book.')
-//    ->controller(BookController::class)
-//    ->group(function () {
-//        Route::get('', 'index')->name('index');
-//        Route::get('{id}', 'show')
-//            ->whereNumber('id')->name('show');
-//        Route::get('create', 'create')->name('create');
-//        Route::post('', 'store')->name('store');
-//    });
 
 Route::prefix('admin/books')
     ->name('book.')
@@ -60,6 +41,5 @@ Route::prefix('admin/books')
         Route::delete('{book}', 'destroy')
             ->whereNumber('book')->name('destroy');
     });
-
 
 

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-//use Illuminate\Http\Request;
 use App\Http\Requests\BookPostRequest;
-use \Illuminate\Http\Response;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -81,11 +81,22 @@ class BookController extends Controller
         $book->title = $request->title;
         $book->price = $request->price;
 
-        // 保存
-        $book->save();
+        dump($book->category_id);
+
+        DB::transaction(function () use ($book, $request) {
+
+            // 保存
+            $book->save();
+
+            // 著者書籍テーブルを登録
+            $book->authors()->attach($request->author_ids);
+
+        });
+
 
         // 保存した書籍情報をレスポンスとして返す
         // return $book;
+
         // 登録完了後book.indexにリダレクトする
         return redirect(route('book.index'))
             ->with('message', $book->title . 'を追加しました');

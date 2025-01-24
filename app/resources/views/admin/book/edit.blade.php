@@ -8,10 +8,8 @@
             <x-error-messages :$errors />
         </x-alert>
     @endif
-
-    <form action="" method="POST">
-
-    <form action="" method="POST">
+{{--    <form action="" method="POST">--}}
+    <form action="{{ route('book.update', $book) }}" method="POST">
         @csrf
         @method('PUT')
         <div>
@@ -19,7 +17,7 @@
             <select name="category_id">
                 @foreach ($categories as $category)
                     <option
-                        value="{{ $category->name }}"
+                        value="{{ $category->id }}"
                         @selected(
                             $category->id == old(
                                 'category_id',

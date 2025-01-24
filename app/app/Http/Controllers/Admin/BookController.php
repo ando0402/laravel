@@ -102,4 +102,23 @@ class BookController extends Controller
             ->with('message', $book->title . 'を追加しました');
     }
 
+    /*
+     * 書籍更新機能
+     */
+    public function edit(Book $book): View
+    {
+        // カテゴリ一覧を表示するために全件取得
+        $categories = Category::all();
+
+        // 著者一覧を表示するために全件取得
+        $authors = Author::all();
+
+        // 書籍に紐付く著者IDの一覧を取得
+        $authorIds = $book->authors()->pluck('id')->all();
+
+        return view('admin/book/edit',
+        compact('book', 'categories', 'authors', 'authorIds'));
+
+    }
+
 }

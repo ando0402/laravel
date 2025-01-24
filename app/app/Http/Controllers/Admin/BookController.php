@@ -144,4 +144,20 @@ class BookController extends Controller
         return redirect(route('book.index'))
             ->with('message', $book->title . 'を変更しました');
     }
+
+    /*
+     * 削除機能
+     */
+    public function destroy(Book $book): RedirectResponse
+    {
+        DB::transaction(function () use ($book) {
+            // 削除
+            $book->authors()->detach();
+            $book->delete();
+        });
+
+        return redirect(route('book.index'))
+            ->with('message', $book->title . 'を削除しました');
+    }
+
 }

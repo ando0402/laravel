@@ -57,6 +57,8 @@ Route::prefix('admin/books')
             ->whereNumber('book')->name('edit');
         Route::put('{book}', 'update')
             ->whereNumber('book')->name('update');
+        Route::delete('{book}', 'destroy')
+            ->whereNumber('book')->name('destroy');
     });
 
 

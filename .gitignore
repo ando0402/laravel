@@ -4,3 +4,6 @@
 .idea/dataSources/53a21e18-2404-480e-b5e8-4a7dc003c612/storage_v2/_src_/schema/information_schema.FNRwLQ.meta
 .idea/dataSources/53a21e18-2404-480e-b5e8-4a7dc003c612/storage_v2/_src_/schema/laravel.uWob_Q.meta
 .idea/dataSources/53a21e18-2404-480e-b5e8-4a7dc003c612/storage_v2/_src_/schema/performance_schema.kIw0nw.meta
+.idea/.gitignore
+.idea/laravel.iml
+.idea/modules.xml
